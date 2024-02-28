@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "571377771654",
+    "project_id": "mindwell-390bb",
+    "storage_bucket": "mindwell-390bb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:571377771654:android:d3cd34bcaf42df5122dd07",
+        "android_client_info": {
+          "package_name": "com.example.admin_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDSq9WP2nl7-d9YTqafaxw2lCbTPHENYDg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:571377771654:android:2547d1c914dde51c22dd07",
+        "android_client_info": {
+          "package_name": "com.example.mindwell"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDSq9WP2nl7-d9YTqafaxw2lCbTPHENYDg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
