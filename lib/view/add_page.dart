@@ -20,6 +20,7 @@ class AddView extends StatelessWidget {
             dividerColor: Colors.transparent,
             unselectedLabelColor: ColorsAsset.kBrown.withOpacity(0.4),
             labelColor: ColorsAsset.kBrown,
+
             tabs:  [
               Tab(
                   text:  "Add illness"

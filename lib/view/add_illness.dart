@@ -21,7 +21,6 @@ class AddIllness extends StatelessWidget {
     builder: (context, state) {
       AddIllnessCubit cubit = AddIllnessCubit.get(context);
       return Scaffold(
-              floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
               backgroundColor: Colors.white,
               body: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 60),

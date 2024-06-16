@@ -18,7 +18,9 @@ class SignUpPage extends StatelessWidget {
         builder: (context, state) {
           SignUpCubit cubit = SignUpCubit.get(context);
           return Scaffold(
+            backgroundColor: Colors.white,
             body: Padding(
+
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: SingleChildScrollView(
                 child: SafeArea(
@@ -29,7 +31,7 @@ class SignUpPage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         SizedBox(
-                          height: 60,
+                          height: 80,
                         ),
                         MyTextField(
                             errorMessage:  "Please insert your name",
@@ -40,7 +42,7 @@ class SignUpPage extends StatelessWidget {
                             obscureText: false
                         ),
                         SizedBox(
-                          height: 15,
+                          height: 20,
                         ),
                         MyTextField(
                             errorMessage:  "Please insert your phone",
@@ -50,7 +52,7 @@ class SignUpPage extends StatelessWidget {
                             keyboardType: TextInputType.phone,
                             obscureText: false),
                         SizedBox(
-                          height: 15,
+                          height: 20,
                         ),
                         MyTextField(
                             errorMessage:  "Please insert an email",
@@ -60,7 +62,7 @@ class SignUpPage extends StatelessWidget {
                             keyboardType: TextInputType.emailAddress,
                             obscureText: false),
                         SizedBox(
-                          height: 15,
+                          height: 20,
                         ),
                         MyTextField(
                           errorMessage:  "Please insert a password",
@@ -82,7 +84,7 @@ class SignUpPage extends StatelessWidget {
                         ),
 
                         const SizedBox(
-                          height: 70,
+                          height: 100,
                         ),
                          CustomButton(
                           height: 42,

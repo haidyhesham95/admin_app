@@ -25,6 +25,7 @@ class BooksCubit extends Cubit<BooksState> {
     addDescriptionController.clear();
     url = null;
     urlPdf = null;
+
   }
   late File file;
   String? url , urlPdf;
@@ -35,52 +36,120 @@ class BooksCubit extends Cubit<BooksState> {
 
   List<BookModel> book = [];
   List<String> bookId = [];
+  bool loadBook = false;
+  bool loadPdf = false;
+  bool loadImage = false;
 
-  void addBook({required BookModel bookModel,  String? id}) {
-    FirebaseFirestore.instance
-        .collection("books").add(bookModel.toMap(id: id)).
-    then((value) => book.add(BookModel.fromJson(bookModel.toMap(id: id), )));
+  // void addBook({required BookModel bookModel,  String? id})
+  //  {
+  //   FirebaseFirestore.instance
+  //       .collection("books").add(bookModel.toMap(id: id)).
+  //   then((value) => book.add(BookModel.fromJson(bookModel.toMap(id: id), )));
+  //
+  // }
+  //
+  //
+  //
+  // addImage() async {
+  //   final ImagePicker picker = ImagePicker();
+  //   final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+  //   if (image != null) {
+  //     file = File(image.path);
+  //     var imageName = basename(image.path);
+  //     var refStorage = FirebaseStorage.instance.ref().child('books/$imageName');
+  //     await refStorage.putFile(file);
+  //     url = await refStorage.getDownloadURL();
+  //
+  //   }
+  //   emit(AddImage());
+  // }
+  //
+  //
+  //  addPdf() async {
+  //     FilePickerResult? document = await FilePicker .platform.pickFiles(
+  //       type: FileType.custom,
+  //       allowedExtensions: ['pdf'],
+  //     );
+  //
+  //     if (document != null) {
+  //       file = File(document.files.single.path!);
+  //       var pdfName = basename(document.files.single.path!);
+  //       var refStorage = FirebaseStorage.instance.ref().child('pdf/$pdfName');
+  //
+  //       await refStorage.putFile(file);
+  //
+  //       urlPdf = await refStorage.getDownloadURL();
+  //
+  //       emit(AddPdf());
+  //     }
+  // }
 
+  void addBook({required BookModel bookModel, String? id}) async {
+    loadBook = true;
+    emit(Loading());
+
+    try {
+      await FirebaseFirestore.instance.collection("books").add(bookModel.toMap(id: id));
+      book.add(BookModel.fromJson(bookModel.toMap(id: id)));
+      emit(Success());
+    } catch (e) {
+      emit(BookError(e.toString()));
+    } finally {
+      loadBook = false;
+    }
   }
 
-
-
-  addImage() async {
+  Future<void> addImage() async {
     final ImagePicker picker = ImagePicker();
     final XFile? image = await picker.pickImage(source: ImageSource.gallery);
-    if (image != null) {
-      file = File(image.path);
-      var imageName = basename(image.path);
-      var refStorage = FirebaseStorage.instance.ref().child('books/$imageName');
-      await refStorage.putFile(file);
-      url = await refStorage.getDownloadURL();
 
+    if (image != null) {
+      loadImage = true;
+      emit(ImageLoading());
+
+      try {
+        file = File(image.path);
+        var imageName = basename(image.path);
+        var refStorage = FirebaseStorage.instance.ref().child('books/$imageName');
+
+        await refStorage.putFile(file);
+        url = await refStorage.getDownloadURL();
+        emit(AddImage());
+      } catch (e) {
+        emit(BookError(e.toString()));
+      } finally {
+        loadImage = false;
+      }
     }
-    emit(AddImage());
   }
 
+  Future<void> addPdf() async {
+    FilePickerResult? document = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['pdf'],
+    );
 
-   addPdf() async {
-      FilePickerResult? document = await FilePicker .platform.pickFiles(
-        type: FileType.custom,
-        allowedExtensions: ['pdf'],
-      );
+    if (document != null) {
+      loadPdf = true;
+      emit(LoadPdf());
 
-      if (document != null) {
+      try {
         file = File(document.files.single.path!);
         var pdfName = basename(document.files.single.path!);
         var refStorage = FirebaseStorage.instance.ref().child('pdf/$pdfName');
 
         await refStorage.putFile(file);
-
         urlPdf = await refStorage.getDownloadURL();
-
         emit(AddPdf());
+      } catch (e) {
+        emit(BookError(e.toString()));
+      } finally {
+        loadPdf = false;
       }
+    }
   }
-
-
-
-
-
 }
+
+
+
+

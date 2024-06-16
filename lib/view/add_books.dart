@@ -21,7 +21,6 @@ class AddBooks extends StatelessWidget {
       BooksCubit cubit = BooksCubit.get(context);
 
       return Scaffold(
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         backgroundColor: Colors.white,
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 18),
@@ -49,11 +48,18 @@ class AddBooks extends StatelessWidget {
                           )
                         ]
                     ),
-                    child: InkWell(
+
+
+                    child:
+
+                    InkWell(
                       onTap: () async{
                         await cubit.addImage();
                       },
-                      child: cubit.url != null ? Image.network(cubit.url!) :Image.asset('assets/add_image.png')
+                      child:cubit.loadImage ? Center(child: CircularProgressIndicator(
+                        color: ColorsAsset.kBrown,
+
+                      )): cubit.url != null ? Image.network(cubit.url!) :Image.asset('assets/add_image.png')
 
                     ),
                   ),
@@ -83,7 +89,10 @@ class AddBooks extends StatelessWidget {
                     onPressed: () async{
                      await cubit.addPdf();
                     },
-                    child: Text('Pick PDF', style: TextStyle(color: ColorsAsset.kBrown, fontSize: 20)),
+
+                    child: cubit.loadPdf ? const CircularProgressIndicator(
+                      color: ColorsAsset.kBrown,
+                    ):  Text(cubit.urlPdf != null ? 'Done':'Pick PDF', style: TextStyle(color: ColorsAsset.kBrown, fontSize: 20)),
                   ),
                   // Image.network(cubit.urlPdf ?? ''),
                   const SizedBox(height: 55),
@@ -92,8 +101,10 @@ class AddBooks extends StatelessWidget {
                     height: 42,
                     width: 220,
                     onTap: () {
+
                       if (cubit.formKey.currentState!.validate()) {
                         cubit.addBook(
+
                           bookModel: BookModel(
                               name: cubit.addNameController.text,
                               author: cubit.addAuthorController.text,
