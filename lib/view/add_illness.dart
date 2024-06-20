@@ -1,7 +1,6 @@
 import 'package:admin_app/widget/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../constan.dart';
 import '../manager/illness/add_illness_cubit.dart';
 import '../model/illness_model.dart';
 import '../widget/custom_textfield.dart';
@@ -82,6 +81,7 @@ class AddIllness extends StatelessWidget {
 
                             if (cubit.formKey.currentState!.validate()) {
                               cubit.addIllness(
+                                context: context,
                                 illnessModel: IllnessModel(
                                     name: cubit.addNameController.text,
                                     identification: cubit.addIdentificationController.text,

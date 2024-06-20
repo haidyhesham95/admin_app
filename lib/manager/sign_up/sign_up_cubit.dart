@@ -7,6 +7,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:meta/meta.dart';
 
 import '../../model/signup_model.dart';
+import '../../style/colors.dart';
 
 part 'sign_up_state.dart';
 
@@ -50,14 +51,15 @@ class SignUpCubit extends Cubit<SignUpState> {
         nameController.clear();
         phoneController.clear();
         passwordSignUpController.clear();
-       // isLoadingSignUp = false;
-        emit(IsLoading());
-       // Navigator.pop(context);
-      });
+
+        emit(Success());
+        Fluttertoast.showToast(msg: "Added Successfully", backgroundColor: ColorsAsset.kBrown,);
+
+            });
     }).catchError((onError) {
       isLoadingSignUp = false;
       emit(IsLoading());
-      Fluttertoast.showToast(msg: onError.message.toString());
+      Fluttertoast.showToast(msg: onError.message.toString(), backgroundColor: ColorsAsset.kBrown, );
     });
   }
 

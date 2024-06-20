@@ -8,3 +8,4 @@ class SignUpInitial extends SignUpState {}
 class ShowPasswordInSignUp extends SignUpState {}
 
 class IsLoading extends SignUpState {}
+class Success extends SignUpState {}

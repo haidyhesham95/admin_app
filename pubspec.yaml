@@ -43,8 +43,14 @@ dependencies:
   firebase_auth:
   cloud_firestore:
   url_launcher:
+  flutter_launcher_icons: ^0.13.1
+
   flutter_bloc:
 
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/logo.png"
 dev_dependencies:
   flutter_test:
     sdk: flutter

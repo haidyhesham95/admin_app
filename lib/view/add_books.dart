@@ -104,7 +104,7 @@ class AddBooks extends StatelessWidget {
 
                       if (cubit.formKey.currentState!.validate()) {
                         cubit.addBook(
-
+                          context: context,
                           bookModel: BookModel(
                               name: cubit.addNameController.text,
                               author: cubit.addAuthorController.text,

@@ -1,5 +1,7 @@
 import 'dart:io';
+import 'package:admin_app/style/colors.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:path/path.dart';
 import 'package:admin_app/model/book_model.dart';
 import 'package:bloc/bloc.dart';
@@ -40,51 +42,8 @@ class BooksCubit extends Cubit<BooksState> {
   bool loadPdf = false;
   bool loadImage = false;
 
-  // void addBook({required BookModel bookModel,  String? id})
-  //  {
-  //   FirebaseFirestore.instance
-  //       .collection("books").add(bookModel.toMap(id: id)).
-  //   then((value) => book.add(BookModel.fromJson(bookModel.toMap(id: id), )));
-  //
-  // }
-  //
-  //
-  //
-  // addImage() async {
-  //   final ImagePicker picker = ImagePicker();
-  //   final XFile? image = await picker.pickImage(source: ImageSource.gallery);
-  //   if (image != null) {
-  //     file = File(image.path);
-  //     var imageName = basename(image.path);
-  //     var refStorage = FirebaseStorage.instance.ref().child('books/$imageName');
-  //     await refStorage.putFile(file);
-  //     url = await refStorage.getDownloadURL();
-  //
-  //   }
-  //   emit(AddImage());
-  // }
-  //
-  //
-  //  addPdf() async {
-  //     FilePickerResult? document = await FilePicker .platform.pickFiles(
-  //       type: FileType.custom,
-  //       allowedExtensions: ['pdf'],
-  //     );
-  //
-  //     if (document != null) {
-  //       file = File(document.files.single.path!);
-  //       var pdfName = basename(document.files.single.path!);
-  //       var refStorage = FirebaseStorage.instance.ref().child('pdf/$pdfName');
-  //
-  //       await refStorage.putFile(file);
-  //
-  //       urlPdf = await refStorage.getDownloadURL();
-  //
-  //       emit(AddPdf());
-  //     }
-  // }
 
-  void addBook({required BookModel bookModel, String? id}) async {
+  void addBook({required BookModel bookModel, String? id,required BuildContext context}) async {
     loadBook = true;
     emit(Loading());
 
@@ -92,6 +51,8 @@ class BooksCubit extends Cubit<BooksState> {
       await FirebaseFirestore.instance.collection("books").add(bookModel.toMap(id: id));
       book.add(BookModel.fromJson(bookModel.toMap(id: id)));
       emit(Success());
+      Fluttertoast.showToast(msg: "Added Successfully", backgroundColor: ColorsAsset.kBrown,);
+
     } catch (e) {
       emit(BookError(e.toString()));
     } finally {
